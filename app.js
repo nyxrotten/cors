@@ -11,14 +11,11 @@ app.get("/rickandmorty/:characterName", async (req, res) => {
 
     try {
         const response = await axios.get(url);
-       
-        const {name, status, species, gender, origin: {}, image} = response.data;;
-         
-        // results.forEach((key) => character.push(key.name, key.status, key.species, key.gender, key.origin.name, key.image))
-        console.log(name)
+        const data = response.data.results;
+        const {name, status, species, gender, origin: { name: originName }, image } = data[0]
 
-            
-        res.json({nombre, edad})
+        res.json({name, status, species, gender, origin: { name: originName }, image})
+        
     } catch (ERROR) {
         res.status(404).json({error: "Personaje no encontrado"});
     }
